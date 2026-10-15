@@ -24,7 +24,52 @@ def ship_color(fuel_ratio):
 
 def on_landing(score):
     """Called after a successful landing with the points just earned; add fireworks or bonuses here."""
-    pass
+    if not pygame.display.get_init() or pygame.display.get_surface() is None:
+        return
+
+    screen = pygame.display.get_surface()
+    particles = []
+    origin_x, origin_y = screen.get_width() // 2, screen.get_height() // 3
+    particle_count = min(100, max(20, score // 5))
+
+    for _ in range(particle_count):
+        angle = random.uniform(0, 2 * math.pi)
+        speed = random.uniform(2, 7)
+        particles.append({
+            "x": origin_x,
+            "y": origin_y,
+            "vx": math.cos(angle) * speed,
+            "vy": math.sin(angle) * speed,
+            "life": random.randint(20, 45),
+            "color": random.choice([
+                (255, 80, 80),
+                (255, 220, 70),
+                (80, 220, 255),
+                (120, 255, 140),
+                (220, 120, 255),
+            ]),
+        })
+
+    for frame in range(30):
+        screen.fill((8, 8, 20))
+        for particle in particles:
+            if particle["life"] <= 0:
+                continue
+
+            particle["x"] += particle["vx"]
+            particle["y"] += particle["vy"]
+            particle["vy"] += 0.12
+            particle["life"] -= 1
+
+            pygame.draw.circle(
+                screen,
+                particle["color"],
+                (int(particle["x"]), int(particle["y"])),
+                max(1, particle["life"] // 10),
+            )
+
+        pygame.display.flip()
+        pygame.time.delay(20)
 
 
 def bonus_life_threshold():
