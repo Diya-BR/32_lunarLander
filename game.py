@@ -161,7 +161,9 @@ class Game:
         self.vel += acceleration * dt
         self.pos += self.vel * dt
         self.pos.x %= WIDTH
-        self.pos.y = max(-200, self.pos.y)
+        # self.pos.y = max(-200, self.pos.y)
+        self.pos.y = max(16, self.pos.y)
+        self.pos.y = max(-min_y_offset, self.pos.y)
         if self.pos.y + FOOT >= ground_y(self.heights, self.pos.x):
             self.touchdown()
 
