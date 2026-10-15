@@ -78,8 +78,8 @@ lunar_lander/
 
 The Lab 4 submission includes:
 
-- A 10-second video showing gameplay before the changes.
-- A 10-second video showing gameplay after the changes.
+- A video showing gameplay before the changes.
+- A video showing gameplay after the changes.
 - A link to the AI assistant conversation containing the complete chat history.
 
 The before-and-after videos and conversation link are submitted through the designated Software Engineering Lab submission repository.
